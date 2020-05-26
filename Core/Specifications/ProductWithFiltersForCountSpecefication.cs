@@ -6,7 +6,7 @@ namespace Core.Specifications
     {
         public ProductWithFiltersForCountSpecefication(ProuctSpecParams prouctParams)
         :base(x=> 
-        (string.IsNullOrEmpty(prouctParams.Search) || x.Name.Contains(prouctParams.Search))&&
+        (string.IsNullOrEmpty(prouctParams.Search) || x.Name.ToLower().Contains(prouctParams.Search))&&
         (!prouctParams.BrandId.HasValue || x.ProductBrandId==prouctParams.BrandId)&&
         (!prouctParams.TypeId.HasValue || x.ProductTypeId==prouctParams.TypeId))
         {
