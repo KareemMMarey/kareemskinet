@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from 'src/app/shared/models/product';
 import { ShopService } from '../shop.service';
 import { ActivatedRoute } from '@angular/router';
+import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
   selector: 'app-product-details',
@@ -10,7 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit {
  product: IProduct;
-  constructor(private shopService: ShopService, private activatedRoute: ActivatedRoute) { }
+  constructor(private shopService: ShopService, private activatedRoute: ActivatedRoute, private bcService: BreadcrumbService) {
+    this.bcService.set('@productDetails', '');
+   }
 
   ngOnInit(): void {
     this.loadProduct();
@@ -21,6 +24,7 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe(
         (response) => {
           this.product = response;
+          this.bcService.set('@productDetails', response.name);
         },
         (err) => {
           console.log(err);
